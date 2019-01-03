@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#fail if there are any errors
+set -e
+
 # extract data from grandcentral and codeship
 rm output/grandcentral_users.csv
 rm output/codeship_users.csv
