@@ -45,4 +45,4 @@ left join cte_blacklist_acct as bl on
 	a.id = bl.account_id
 left join cte_currency_miner as cm on
 	a.id = cm.account_id
-	) to 'codeship_users_20181219.csv' With (FORMAT CSV, HEADER)
+	) to 'codeship_users.csv' With (FORMAT CSV, HEADER)

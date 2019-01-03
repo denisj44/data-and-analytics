@@ -17,7 +17,7 @@
     from users as u
     join account_users au on u.id = au.user_id
     join accounts a on  au.account_id = a.id 
-) to 'grandcentral_users_20181219.csv' With (FORMAT CSV, HEADER)
+) to 'grandcentral_users.csv' With (FORMAT CSV, HEADER)
 
 
 
