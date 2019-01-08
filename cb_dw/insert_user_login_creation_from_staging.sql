@@ -59,6 +59,32 @@ insert
 		group by u.dw_user_id, login_type, login_created_at, dw_created_at, dw_updated_at, dw_created_by, dw_updated_by;
 	
 	
+	
+	insert
+	into
+		public.user_login_summary ( --rename to user_login_summary
+			dw_user_id
+			, login_type
+			, login_created_at
+			, login_deleted_at
+			, dw_created_at
+			, dw_updated_at
+			, dw_created_by
+			, dw_updated_by
+		) select distinct
+			u.dw_user_id
+			, 'CodeShip' as login_type
+			, rcu.user_created_at::timestamp as login_created_at
+			, rcu.user_deleted_at::timestamp as login_deleted_at
+			, current_timestamp as dw_created_at
+			, current_timestamp as dw_updated_at
+			, 'user_login_creation dump/reload - user: '||current_user as dw_created_by
+			, 'user_login_creation dump/reload - user: '||current_user as dw_updated_by
+		from
+			stage.raw_codeship_users as rcu
+		join public.users as u on
+			rcu.email = u.email	;
+	
 
 		
 		
