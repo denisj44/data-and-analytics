@@ -2,6 +2,8 @@
 
 #fail if there are any errors
 set -e
+#show line being executed
+set -x
 
 # extract data from grandcentral and codeship
 rm output/grandcentral_users.csv
@@ -13,3 +15,5 @@ psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw 
 psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw -c "\COPY stage.raw_grandcentral_users FROM '~/cloudbees/data-and-analytics/output/grandcentral_users.csv' WITH (FORMAT CSV, HEADER);"
 psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw -c "truncate table stage.raw_codeship_users;"
 psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw -c "\COPY stage.raw_codeship_users FROM '~/cloudbees/data-and-analytics/output/codeship_users.csv' WITH (FORMAT CSV, HEADER);" 
+psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw -f cb_dw/insert_users_from_staging.sql
+psql -h da-dw-dev.ci8ic0ywvga2.us-east-1.rds.amazonaws.com -U postgres -d cb_dw -f cb_dw/insert_user_login_summary_from_staging.sql
