@@ -15,8 +15,8 @@
     , a.totango_key
     , a.end_date as account_end_date
     from users as u
-    join account_users au on u.id = au.user_id
-    join accounts a on  au.account_id = a.id 
+    left join account_users au on u.id = au.user_id
+    left join accounts a on  au.account_id = a.id 
 ) to 'output/grandcentral_users.csv' With (FORMAT CSV, HEADER)
 
 
