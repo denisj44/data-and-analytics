@@ -17,4 +17,5 @@ create
 			, dw_created_by character varying not null
 			, dw_updated_by character varying not null
 			, constraint uk_user_login_summary_dw_user_id_login_type_login_created_at unique (dw_user_id, login_type, login_created_at)
+			, constraint fk_user_login_summary_dw_user_id_users_dw_user_id foreign key (dw_user_id) references users(dw_user_id)
 		);
