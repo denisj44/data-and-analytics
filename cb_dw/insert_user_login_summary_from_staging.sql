@@ -27,7 +27,7 @@ insert
 					least(
 						coalesce(rgu.user_end_date,'30000-12-31') ::timestamp
 						,case
-							when rgu.account_id is null then '0001-01-01'::timestamp -- if null then assume deleted and choose a date that indicates the deleted date is unknown
+							when rgu.account_id is null then rgu.created_at::timestamp -- if null then assume deleted and use the creation date as the deleted date since the actual is unknown
 							else '30000-12-31'::timestamp
 						end
 					,coalesce(rgu.account_user_deleted_at, '30000-12-31')::timestamp
